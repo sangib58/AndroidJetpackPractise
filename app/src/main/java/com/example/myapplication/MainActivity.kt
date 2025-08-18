@@ -17,12 +17,21 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.Image
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,6 +48,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.myapplication.ui.theme.Green200
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -48,13 +58,52 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
+                    //modifier = Modifier.fillMaxSize(),
                     color= MaterialTheme.colorScheme.background
                 ) {
-                    LearnState()
+                    LearnTopAppBar()
                 }
             }
         }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun LearnTopAppBar(){
+    val context= LocalContext.current.applicationContext
+    TopAppBar(
+        title = {Text("WhatsApp")},
+        navigationIcon = {
+            IconButton(onClick = { Toast.makeText(context,"clicked", Toast.LENGTH_SHORT).show()}) {
+                Icon(painter = painterResource(id=R.drawable.whatapp_icon), contentDescription = "WhatsApp Logo")
+            }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = Green200,
+            titleContentColor = Color.White,
+            navigationIconContentColor = Color.White
+        ),
+        actions = {
+            IconButton(onClick = { Toast.makeText(context,"Profile", Toast.LENGTH_SHORT).show()}) {
+                Icon(imageVector = Icons.Filled.Person, contentDescription = "Profile", tint = Color.White)
+            }
+            IconButton(onClick = { Toast.makeText(context,"Search", Toast.LENGTH_SHORT).show()}) {
+                Icon(imageVector = Icons.Filled.Search, contentDescription = "Search", tint = Color.White)
+            }
+            IconButton(onClick = { Toast.makeText(context,"Menu", Toast.LENGTH_SHORT).show()}) {
+                Icon(imageVector = Icons.Filled.MoreVert, contentDescription = "Menu", tint = Color.White)
+            }
+        }
+    )
+
+}
+
+@Preview
+@Composable
+fun PreviewLearnTopAppBar(){
+    MyApplicationTheme{
+        LearnTopAppBar()
     }
 }
 
