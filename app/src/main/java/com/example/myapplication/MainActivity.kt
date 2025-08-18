@@ -17,7 +17,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
@@ -40,6 +44,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.AlignmentLine
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -58,10 +63,21 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
                 Surface(
-                    //modifier = Modifier.fillMaxSize(),
-                    color= MaterialTheme.colorScheme.background
+//                    modifier = Modifier.background(color = Green200),
+//                    color= MaterialTheme.colorScheme.background
+//                    modifier = Modifier.height(150.dp).width(250.dp).padding(top=20.dp),
+                    modifier = Modifier.fillMaxSize().background(Color.Red),
+                    color=Green200,
+                    shape = RoundedCornerShape(size=20.dp)
                 ) {
-                    LearnTopAppBar()
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement=Arrangement.Center
+                    ) {
+                        Text("Basic Surface", textAlign = TextAlign.Center)
+                    }
+
+                    //LearnTopAppBar()
                 }
             }
         }
@@ -73,10 +89,10 @@ class MainActivity : ComponentActivity() {
 fun LearnTopAppBar(){
     val context= LocalContext.current.applicationContext
     TopAppBar(
-        title = {Text("WhatsApp")},
+        title = {Text("WhatsApp", fontSize = 16.sp)},
         navigationIcon = {
             IconButton(onClick = { Toast.makeText(context,"clicked", Toast.LENGTH_SHORT).show()}) {
-                Icon(painter = painterResource(id=R.drawable.whatapp_icon), contentDescription = "WhatsApp Logo")
+                Icon(imageVector = Icons.Filled.Call, contentDescription = "WhatsApp Logo")
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
@@ -96,7 +112,6 @@ fun LearnTopAppBar(){
             }
         }
     )
-
 }
 
 @Preview
