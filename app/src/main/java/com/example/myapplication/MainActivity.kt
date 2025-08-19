@@ -48,6 +48,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.AlignmentLine
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -59,39 +60,44 @@ import com.example.myapplication.ui.theme.MyApplicationTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //enableEdgeToEdge()
+        enableEdgeToEdge()
         setContent {
             MyApplicationTheme {
                 Surface(
-//                    modifier = Modifier.background(color = Green200),
-//                    color= MaterialTheme.colorScheme.background
-//                    modifier = Modifier.height(150.dp).width(250.dp).padding(top=20.dp),
-                    modifier = Modifier.fillMaxSize().background(Color.Red),
-                    color=Green200,
-                    shape = RoundedCornerShape(size=20.dp)
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
                 ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement=Arrangement.Center
-                    ) {
-                        Text("Basic Surface", textAlign = TextAlign.Center)
-                    }
 
-                    //LearnTopAppBar()
                 }
             }
+        }
+    }
+
+    @Preview(
+        showBackground = true,
+        showSystemUi = false,
+        name = "App",
+        widthDp = 300,
+        heightDp = 300
+    )
+    @Composable
+    fun PreviewLearnTopAppBar() {
+        MyApplicationTheme {
+            Text(text = "Hello", fontStyle = FontStyle.Italic, textAlign = TextAlign.Right)
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LearnTopAppBar(){
-    val context= LocalContext.current.applicationContext
+fun LearnTopAppBar() {
+    val context = LocalContext.current.applicationContext
     TopAppBar(
-        title = {Text("WhatsApp", fontSize = 16.sp)},
+        title = { Text("WhatsApp", fontSize = 16.sp) },
         navigationIcon = {
-            IconButton(onClick = { Toast.makeText(context,"clicked", Toast.LENGTH_SHORT).show()}) {
+            IconButton(onClick = {
+                Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show()
+            }) {
                 Icon(imageVector = Icons.Filled.Call, contentDescription = "WhatsApp Logo")
             }
         },
@@ -101,62 +107,85 @@ fun LearnTopAppBar(){
             navigationIconContentColor = Color.White
         ),
         actions = {
-            IconButton(onClick = { Toast.makeText(context,"Profile", Toast.LENGTH_SHORT).show()}) {
-                Icon(imageVector = Icons.Filled.Person, contentDescription = "Profile", tint = Color.White)
+            IconButton(onClick = {
+                Toast.makeText(context, "Profile", Toast.LENGTH_SHORT).show()
+            }) {
+                Icon(
+                    imageVector = Icons.Filled.Person,
+                    contentDescription = "Profile",
+                    tint = Color.White
+                )
             }
-            IconButton(onClick = { Toast.makeText(context,"Search", Toast.LENGTH_SHORT).show()}) {
-                Icon(imageVector = Icons.Filled.Search, contentDescription = "Search", tint = Color.White)
+            IconButton(onClick = { Toast.makeText(context, "Search", Toast.LENGTH_SHORT).show() }) {
+                Icon(
+                    imageVector = Icons.Filled.Search,
+                    contentDescription = "Search",
+                    tint = Color.White
+                )
             }
-            IconButton(onClick = { Toast.makeText(context,"Menu", Toast.LENGTH_SHORT).show()}) {
-                Icon(imageVector = Icons.Filled.MoreVert, contentDescription = "Menu", tint = Color.White)
+            IconButton(onClick = { Toast.makeText(context, "Menu", Toast.LENGTH_SHORT).show() }) {
+                Icon(
+                    imageVector = Icons.Filled.MoreVert,
+                    contentDescription = "Menu",
+                    tint = Color.White
+                )
             }
         }
     )
 }
 
-@Preview
 @Composable
-fun PreviewLearnTopAppBar(){
-    MyApplicationTheme{
-        LearnTopAppBar()
-    }
-}
-
-@Composable
-fun LearnState(){
+fun LearnState() {
     //var age=0
     var age by remember { mutableStateOf(0) }
-    Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Button(
             shape = ButtonDefaults.elevatedShape,
             colors = ButtonDefaults.buttonColors(Color.Red),
-            onClick = { age++
-                Log.v("TAG",age.toString())}) {
+            onClick = {
+                age++
+                Log.v("TAG", age.toString())
+            }) {
             Text("I am $age years old")
         }
     }
 }
 
 @Composable
-fun LearnButton(){
-    val context= LocalContext.current.applicationContext
-    Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+fun LearnButton() {
+    val context = LocalContext.current.applicationContext
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Button(
             shape = ButtonDefaults.elevatedShape,
             colors = ButtonDefaults.buttonColors(Color.Red),
-            onClick = { Toast.makeText(context,"Button Clicked", Toast.LENGTH_LONG).show()}) {
+            onClick = { Toast.makeText(context, "Button Clicked", Toast.LENGTH_LONG).show() }) {
             Text("Login")
         }
     }
 }
 
 @Composable
-fun LearnImage(){
-    Image(painter = painterResource(id=R.drawable.jc_logo),contentDescription = "WhatsApp Logo", modifier = Modifier.background(Color.Black))
+fun LearnImage() {
+    Image(
+        painter = painterResource(id = R.drawable.jc_logo),
+        contentDescription = "WhatsApp Logo",
+        modifier = Modifier.background(Color.Black)
+    )
 }
+
 @Composable
-fun LearnAlignmentArrangement(){
-    Row (verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center, modifier = Modifier.padding(30.dp)){
+fun LearnAlignmentArrangement() {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
+        modifier = Modifier.padding(30.dp)
+    ) {
         Text("Text 1")
         Text("Text 2")
         Text("Text 3")
@@ -164,18 +193,35 @@ fun LearnAlignmentArrangement(){
 }
 
 @Composable
-fun LearnRCB(){
-    Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+fun LearnRCB() {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
         Text("Learn Alignment 1")
         Text("Learn Alignment 2")
         Text("Learn Alignment 3")
     }
-    Row (verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
         Text("Learn Alignment 1")
         Text("Learn Alignment 2")
     }
-    Box(modifier = Modifier.fillMaxSize().background(Color.Yellow), contentAlignment = Alignment.Center){
-        Box(modifier = Modifier.height(350.dp).width(350.dp).background(Color.Black), contentAlignment = Alignment.Center){
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Yellow),
+        contentAlignment = Alignment.Center
+    ) {
+        Box(
+            modifier = Modifier
+                .height(350.dp)
+                .width(350.dp)
+                .background(Color.Black),
+            contentAlignment = Alignment.Center
+        ) {
             Text("Box Alignment", color = Color.White, fontSize = 24.sp)
         }
     }
