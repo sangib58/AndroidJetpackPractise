@@ -45,6 +45,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -68,21 +69,29 @@ import com.example.myapplication.ui.theme.MyApplicationTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //enableEdgeToEdge()
+        enableEdgeToEdge()
         setContent {
             MyApplicationTheme {
-                Column {
-                    LearnTopAppBar()
-                    ListView(R.drawable.jc_logo, "Rohit", "Android Developer",modifier=Modifier.padding(10.dp))
-                    ListView(R.drawable.whatsapp_icon, "Janet", "Web Developer",modifier=Modifier.padding(20.dp))
-                    ListView(R.drawable.whatsapp_icon_2, "Suresh", "NFT Developer",modifier=Modifier.padding(30.dp))
-                }
+                //LearnTopAppBar()
+                BlogDetailPreview()
             }
         }
     }
 
     @Composable
-    fun ListView(imageId: Int, name: String, title: String,modifier: Modifier) {
+    fun ReComposableTest() {
+        val state = rememberSaveable { mutableStateOf(0.0) }
+        Log.d("TAG", "Recomposition")
+        Button(onClick = {
+            state.value = Math.random()
+        }) {
+            Log.d("TAG", "Button Clicked")
+            Text(text = state.value.toString())
+        }
+    }
+
+    @Composable
+    fun ListView(imageId: Int, name: String, title: String, modifier: Modifier) {
         Row(modifier = modifier) {
             Image(
                 painter = painterResource(id = imageId), contentDescription = null,
@@ -100,7 +109,7 @@ class MainActivity : ComponentActivity() {
     fun LearnTopAppBar() {
         val context = LocalContext.current.applicationContext
         TopAppBar(
-            title = { Text("WhatsApp", fontSize = 16.sp) },
+            title = { Text("TestApp", fontSize = 16.sp) },
             navigationIcon = {
                 IconButton(onClick = {
                     Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show()
@@ -175,7 +184,9 @@ class MainActivity : ComponentActivity() {
             Button(
                 shape = ButtonDefaults.elevatedShape,
                 colors = ButtonDefaults.buttonColors(Color.Red),
-                onClick = { Toast.makeText(context, "Button Clicked", Toast.LENGTH_LONG).show() }) {
+                onClick = {
+                    Toast.makeText(context, "Button Clicked", Toast.LENGTH_LONG).show()
+                }) {
                 Text("Login")
             }
         }
